@@ -1,7 +1,7 @@
 var express = require("express");
 var path = require("path");
 const fs = require("fs")
-let i=1
+var z=1
 var app = express();
 var PORT = process.env.PORT || 3001;
 
@@ -110,8 +110,8 @@ app.get("/api/notes", function(req, res) {
     app.post("/api/notes", function(req, res) {
         console.log("test API route")
         console.log(req.body)
-        req.body.id=i
-        i++
+        req.body.id=z
+        z++
         var data=JSON.stringify(req.body)
         console.log("data",data)
         
