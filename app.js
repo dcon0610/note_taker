@@ -28,11 +28,15 @@ app.get("/notes", function(req, res) {
         }
 
         var obj=[]
-        obj=data.split(" ")
+        var jsonObject=[]
+        obj=data.split(";!@!")
         var newObject = obj.filter(function (el) {
             return el != '';
           });
-        var jsonObject=newObject.map(JSON.parse)
+          for (i=0; i<newObject.length; i++ ) {
+            jsonObject[i]=JSON.parse(newObject[i])
+  
+          }
         const Index = jsonObject.findIndex(function(item, i) {
             return item.id == ID
           });
@@ -49,7 +53,7 @@ app.get("/notes", function(req, res) {
         });
         for (i=0; i< jsonObject.length; i++)
         {
-          fs.appendFile('./db/db.json', `${JSON.stringify(jsonObject[i])} `, function read(err) {
+          fs.appendFile('./db/db.json', `${JSON.stringify(jsonObject[i])};!@!`, function read(err) {
             if (err) {
                 throw err;
             }
@@ -71,19 +75,25 @@ app.get("/api/notes", function(req, res) {
         if (err) {
             throw err;
         }
+        console.log(data)
          if (data!= '') {
          const content = (data);
         console.log("content:",content)
 
         var obj=[]
-        obj=data.split(" ")
+        obj=data.split(";!@!")
         console.log(obj)
 
         var newObject = obj.filter(function (el) {
             return el != '';
           });
+        var jsonObject=[]
         console.log("removed empty",newObject)
-        var jsonObject=newObject.map(JSON.parse)
+        for (i=0; i<newObject.length; i++ ) {
+          jsonObject[i]=JSON.parse(newObject[i])
+
+        }
+
         console.log(jsonObject)
         res.send(jsonObject)
         console.log("message sent...")
@@ -104,7 +114,8 @@ app.get("/api/notes", function(req, res) {
         i++
         var data=JSON.stringify(req.body)
         console.log("data",data)
-        fs.appendFile('./db/db.json', `${data} `, function read(err) {
+        
+        fs.appendFile('./db/db.json', `${data};!@!`, function read(err) {
             if (err) {
                 throw err;
             }
